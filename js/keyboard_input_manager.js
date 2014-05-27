@@ -90,8 +90,6 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".restore-button", this.restore);
-  this.bindButtonPress(".store-button", this.store);
-  this.bindButtonPress(".paint-button", this.paint);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
   // Respond to swipe events

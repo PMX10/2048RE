@@ -558,7 +558,9 @@ hr {
 .above-game:after {
   content: "";
   display: block;
-  clear: both; }
+  clear: both; 
+  margin-bottom: 10px}
+  
 
 .game-intro {
   float: left;
@@ -581,45 +583,21 @@ hr {
   
 .restore-button {
   display: inline-block;
-  background: #8f7a66;
+  background: #ffffff;
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;
   color: #f9f6f2;
-  height: 42px;
+  height: 40px;
   line-height: 42px;
   cursor: pointer;
   display: block;
   text-align: center;
   float: right; }
   
-.store-button {
-  display: inline-block;
-  background: #ffffff;
-  border-radius: 3px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: #000000;
-  height: 35px;
-  line-height: 42px;
-  cursor: pointer;
-  display: block;
-  text-align: center;
-  float: left; }
-  
-.paint-button {
-  display: inline-block;
-  background: #000000;
-  border-radius: 3px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: #f9f6f2;
-  height: 35px;
-  line-height: 40px;
-  cursor: pointer;
-  display: block;
-  text-align: center;
-  float: left; }
+.restore-message{
+	color: #f9f6f2;
+	float: right; }
 
 .game-explanation {
   margin-top: 50px; }
@@ -1057,38 +1035,3 @@ hr {
     transform: scale(1) translateZ(0);
     opacity: 1;
     margin-top: 10px; } }
-.app-notice {
-  position: relative;
-  -webkit-animation: pop-in-big 700ms ease 2s both;
-  -moz-animation: pop-in-big 700ms ease 2s both;
-  animation: pop-in-big 700ms ease 2s both;
-  background: #edc53f;
-  color: white;
-  padding: 18px;
-  margin-top: 30px;
-  height: 56px;
-  box-sizing: border-box;
-  border-radius: 3px; }
-  .app-notice:after {
-    content: "";
-    display: block;
-    clear: both; }
-  .app-notice .notice-close-button {
-    float: right;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-    opacity: 0.7; }
-  .app-notice p {
-    margin-bottom: 0; }
-  .app-notice, .app-notice p {
-    line-height: 20px; }
-  .app-notice a {
-    color: white; }
-  @media screen and (max-width: 520px) {
-    .app-notice {
-      -webkit-animation: pop-in-small 700ms ease 2s both;
-      -moz-animation: pop-in-small 700ms ease 2s both;
-      animation: pop-in-small 700ms ease 2s both;
-      margin-top: 10px;
-      height: 76px; } }

@@ -6,6 +6,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.undo           = [this.storageManager.getGameState()];
   this.previousState  = this.undo[0];
   this.stored         = null;
+  this.undo_button    = document.getElementById("undo-button");
 
   this.startTiles     = 2;
 
@@ -41,6 +42,10 @@ GameManager.prototype.restore = function () {
   }
   if(this.undo.length > 1){
     this.undo.shift();
+  }else{
+    document.getElementById("undo-info").innerHTML = "No more undo chances!";
+    var elem = document.getElementById("undo-button");
+    elem.parentNode.removeChild(elem);
   }
   this.setup();
 };
@@ -108,6 +113,13 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
+    if(this.undo.length == 1){
+      var temp = document.getElementById("undo-info");
+      temp.parentNode.removeChild(temp);
+      document.getElementById("above-game").appendChild(this.undo_button);
+      document.getElementById("above-game").appendChild(temp);
+      document.getElementById("undo-info").innerHTML = "Made a mistake? No worry.  You can undo 5 steps!";
+    }
     if(this.undo.length >= 5){
       this.undo.pop();
     }

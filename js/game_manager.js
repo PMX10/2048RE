@@ -7,6 +7,10 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.previousState  = this.undo[0];
   this.stored         = null;
   this.undo_button    = document.getElementById("undo-button");
+  this.kState = false;
+  this.k = null;
+  this.undoUsedUp = false;
+  this.buttonParent = document.getElementById("undo-button").parentNode;
 
   this.startTiles     = 2;
 
@@ -33,6 +37,17 @@ GameManager.prototype.restart = function () {
   this.setup();
   this.undo = tempUndo.slice(0);
   this.previousState = this.undo[0];
+
+  console.log("Restarted");
+
+  if(this.undoUsedUp == true){
+    var temp = document.getElementById("undo-info");
+      temp.parentNode.removeChild(temp);
+      document.getElementById("above-game").appendChild(this.undo_button);
+      document.getElementById("above-game").appendChild(temp);
+      document.getElementById("undo-info").innerHTML = "Made a mistake? No worry.  You can undo 5 steps!";
+    this.undoUsedUp = false;
+  }
 };
 
 // Restore game setting before the last move
@@ -43,9 +58,16 @@ GameManager.prototype.restore = function () {
   if(this.undo.length > 1){
     this.undo.shift();
   }else{
+    console.log(this.undo.length);
+    if(this.k != null){
+      this.undo = [this.k];
+      this.previousState = this.k;
+      this.k = null;
+    }
     document.getElementById("undo-info").innerHTML = "No more undo chances!";
     var elem = document.getElementById("undo-button");
-    elem.parentNode.removeChild(elem);
+    if(elem != null) elem.parentNode.removeChild(elem);
+    this.undoUsedUp = true;
   }
   this.setup();
 };
@@ -153,6 +175,7 @@ GameManager.prototype.actuate = function () {
     terminated: this.isGameTerminated()
   });
 
+  
 };
 
 // Represent the current game as an object
@@ -223,6 +246,8 @@ GameManager.prototype.move = function (direction) {
           // Update the score
           self.score += merged.value;
 
+          // Update the K score
+          if(merged.value === 64 || merged.value === 128 || merged.value === 256 || merged.value === 512 || merged.value === 1024) self.kState = true;
           // The mighty 2048 tile
           if (merged.value === 2048) self.won = true;
         } else {
@@ -237,14 +262,21 @@ GameManager.prototype.move = function (direction) {
   });
 
   if (moved) {
-    this.addRandomTile();
 
+    this.addRandomTile();
     if (!this.movesAvailable()) {
       this.over = true; // Game over!
     }
 
     this.actuate();
+
   }
+
+  if(this.kState == true){
+    this.k = this.storageManager.getGameState();
+    this.kState == false;
+  }
+  
 };
 
 // Get the vector representing the chosen direction
